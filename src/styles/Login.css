@@ -1,0 +1,115 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Prend toute la hauteur de l'écran */
+  margin: 0;
+}
+
+
+
+.container {
+  width: 80%; /* Réduire la largeur */
+  max-width: 600px; /* Limiter à une taille raisonnable */
+  margin: 20px auto; /* Centrer avec des marges */
+  background: white;
+  padding: 20px 30px; /* Ajuster le padding pour plus de confort */
+  border-radius: 10px; /* Coins arrondis */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Effet d'ombre pour un look moderne */
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.text {
+  color: #081c60;
+  font-size: 28px; /* Réduire la taille */
+  font-weight: 600;
+}
+
+.underline {
+  width: 40px; /* Réduire la largeur */
+  height: 4px; /* Réduire la hauteur */
+  background: #081c60;
+  border-radius: 9px;
+}
+
+.inputs {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Moins d'espacement */
+}
+
+.input {
+  display: flex;
+  align-items: center;
+  width: 100%; /* Adapter à la largeur du conteneur */
+  height: 60px; /* Réduire la hauteur */
+  background: #f0f0f0;
+  border-radius: 6px;
+}
+
+.input img {
+  margin: 0 20px; /* Réduire les marges des icônes */
+  width: 24px; /* Taille des icônes plus petite */
+  height: 24px;
+}
+
+.input input {
+  width: 100%; /* Remplir tout l'espace disponible */
+  height: 40px; /* Réduire la hauteur */
+  border: none;
+  background: transparent;
+  font-size: 16px; /* Taille réduite */
+  color: grey;
+  outline: none;
+}
+
+.forgot-password {
+  margin-top: 15px; /* Moins d'espace avec les inputs */
+  text-align: center; /* Centrer le texte */
+  color: rgb(34, 34, 167);
+  font-size: 16px; /* Réduire la taille */
+  cursor: pointer;
+}
+
+.submit-container {
+  display: flex;
+  gap: 20px; /* Réduire l'écart entre les boutons */
+  margin: 40px auto; /* Moins d'espace en bas */
+}
+
+.submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 180px; /* Réduire la largeur */
+  height: 50px; /* Réduire la hauteur */
+  background: #081c60;
+  color: white;
+  border-radius: 50px;
+  font-size: 16px; /* Taille réduite */
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit.gray {
+  background: #f0f0f0;
+  color: rgb(57, 123, 166);
+}
+
+.submit:hover {
+  background: #062a83; /* Couleur légèrement plus foncée au survol */
+  transform: scale(1.05); /* Zoom léger */
+}
+
+.submit:active {
+  transform: scale(0.95); /* Rétrécissement léger lors du clic */
+}

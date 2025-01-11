@@ -1,0 +1,26 @@
+/* src/styles/Navbar.css */
+nav {
+  background-color: #0a0a0b;
+  padding: 1rem;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  color: white;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover {
+  text-decoration: underline;
+}

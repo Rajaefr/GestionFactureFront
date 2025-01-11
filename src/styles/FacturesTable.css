@@ -1,0 +1,212 @@
+.addfacture-container {
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.addfacture-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.facture-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.facture-table th,
+.facture-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.facture-table th {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.facture-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.facture-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.paid {
+  color: green;
+  font-weight: bold;
+}
+
+.unpaid {
+  color: red;
+  font-weight: bold;
+}
+
+.btn-update,
+.btn-delete,
+.btn-pay {
+  padding: 5px 10px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.btn-update {
+  background-color: #4caf50;
+}
+
+.btn-delete {
+  background-color: #f44336;
+}
+
+.btn-pay {
+  background-color: #2196f3;
+}
+
+.btn-update:hover {
+  background-color: #45a049;
+}
+
+.btn-delete:hover {
+  background-color: #d32f2f;
+}
+
+.btn-pay:hover {
+  background-color: #1976d2;
+}
+
+/* Style pour les lignes des factures payées */
+.paid-row {
+  background-color: #f0f0f0; /* Gris clair pour les lignes payées */
+}
+
+/* Style pour le statut 'Payée' */
+.paid {
+  color: gray; /* Texte gris pour les factures payées */
+}
+
+/* Style pour le statut 'Impayée' */
+.unpaid {
+  color: green; /* Texte vert pour les factures impayées */
+}
+
+/* Désactivation des boutons pour les factures payées */
+button:disabled {
+  background-color: #d3d3d3; /* Gris pour les boutons désactivés */
+  cursor: not-allowed; /* Curseur pour indiquer que l'élément est désactivé */
+}
+
+
+/* Style pour le statut 'Payée' */
+.paid {
+  color: gray; /* Texte gris pour les factures payées */
+}
+
+/* Style pour le statut 'Impayée' */
+.unpaid {
+  color: green; /* Texte vert pour les factures impayées */
+}
+
+/* Style pour le bouton 'Ajouter Paiement' désactivé */
+.btn-pay-disabled {
+  background-color: #d3d3d3; /* Gris pour le bouton désactivé */
+  color: #a0a0a0; /* Texte gris clair */
+  cursor: not-allowed; /* Curseur pour indiquer que l'élément est désactivé */
+  border: 1px solid #a0a0a0; /* Bordure gris clair */
+}
+
+/* Autres styles pour les boutons 'Update' et 'Delete' */
+.btn-update, .btn-delete {
+  background-color: #4CAF50; /* Exemple de couleur pour les boutons */
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.btn-update:hover, .btn-delete:hover {
+  background-color: #45a049; /* Changement de couleur au survol */
+}
+
+
+
+/* Container pour le titre, bouton et champ de recherche */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.btn-add {
+  background-color: #4CAF50; /* Couleur du bouton Ajouter Facture */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.btn-add:hover {
+  background-color: #45a049; /* Changement de couleur au survol */
+}
+
+.search-input {
+  padding: 8px;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Styles pour le tableau des factures */
+.facture-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.facture-table th, .facture-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.facture-table th {
+  background-color: #f2f2f2;
+}
+
+.paid {
+  color: gray;
+}
+
+.unpaid {
+  color: green;
+}
+
+/* Styles pour les boutons */
+.btn-update, .btn-delete {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.btn-update:hover, .btn-delete:hover {
+  background-color: #45a049;
+}
+
+.btn-pay-disabled {
+  background-color: #d3d3d3;
+  color: #a0a0a0;
+  cursor: not-allowed;
+  border: 1px solid #a0a0a0;
+}

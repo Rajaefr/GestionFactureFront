@@ -1,0 +1,57 @@
+.accueil-container {
+  display: flex;
+  height: 100vh; /* Toute la hauteur de la fenêtre */
+}
+
+.image-container {
+  flex: 1; /* 50% de la largeur */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container img {
+  width: 100%; /* S'étend sur toute la largeur du conteneur */
+  height: 100%; /* S'étend sur toute la hauteur */
+  object-fit: cover; /* Maintient les proportions tout en remplissant l'espace */
+}
+
+.message-container {
+  flex: 1; /* 50% of the width */
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  padding: 20px; /* Add some spacing */
+  text-align: center; /* Center text content */
+}
+
+.message-container p {
+  font-size: 1.2rem; /* Adjust text size */
+  line-height: 1.5; /* Line height for readability */
+  margin-bottom: 20px; /* Add spacing below the paragraph */
+}
+
+.message-container a {
+  display: inline-block; /* Make it behave like a button */
+  padding: 10px 20px; /* Button padding */
+  color: #fff; /* White text color */
+  background-color: #007bff; /* Button background color */
+  border-radius: 8px; /* Rounded corners */
+  text-decoration: none; /* Remove underline */
+  font-size: 1rem; /* Button font size */
+  font-weight: bold; /* Bold text */
+  text-align: center; /* Center text inside the button */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
+}
+
+.message-container a:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+.message-container a:active {
+  background-color: #004085; /* Darker blue on click */
+  transform: scale(0.95); /* Slight shrink effect */
+}
