@@ -1,72 +1,78 @@
 import React, { useEffect, useState } from "react";
-import {
-  BsFillArchiveFill,
-  BsFillGrid3X3GapFill,
-  BsPeopleFill,
-  BsFillBellFill,
-} from "react-icons/bs";
-
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { Link } from "react-router-dom";
 import "../styles/Dashboard.css";
-import { fetchPaiementsByCategory} from "../services/paiementService";
+import { fetchPaiementsByCategory } from "../services/paiementService";
 import { getFacturesEcheanceProche } from "../services/factureService";
 
 function Dashboard() {
   const [factures, setFactures] = useState([]);
   const [paiements, setPaiements] = useState([]);
   const [chartData, setChartData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
-  const RADIAN = Math.PI / 180;
 
   useEffect(() => {
-    // Fetch data for factures and paiements
-    const fetchData = async () => {
-      try {
-        const facturesData = await getFacturesEcheanceProche();
-        setFactures(facturesData);
+   const fetchData = async () => {
+  try {
+    setLoading(true); // Set loading to true before fetching
+    const facturesData = await getFacturesEcheanceProche();
+    
+    console.log("Fetched Factures Data:", facturesData); // Log the fetched data to inspect it
 
-        const paiementsData = await fetchPaiementsByCategory();
-        setPaiements(paiementsData);
+    if (Array.isArray(facturesData) && facturesData.length > 0) {
+      setFactures(facturesData); // Set the factures data if valid
+    } else {
+      console.error("No valid factures available or data format is incorrect.");
+      setFactures([]); // Set it to an empty array if no valid data
+    }
 
-        // Transform paiements data into chart data
-        const chartFormattedData = paiementsData.map((item) => ({
-          name: item.category,
-          value: item.total,
-        }));
-        setChartData(chartFormattedData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+    const paiementsData = await fetchPaiementsByCategory();
+    setPaiements(paiementsData);
+
+    // Format chart data if paiementsData is valid
+    if (Array.isArray(paiementsData)) {
+      const chartFormattedData = paiementsData.map((item) => ({
+        name: item.category,
+        value: item.total,
+      }));
+      setChartData(chartFormattedData);
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  } finally {
+    setLoading(false); // Set loading to false after fetching
+  }
+};
+
 
     fetchData();
   }, []);
 
-  const renderCustomizedLabel = ({
-    cx,
-    cy,
-    midAngle,
-    innerRadius,
-    outerRadius,
-    percent,
-    index,
-  }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+  const renderChart = () => {
+    if (chartData.length === 0) {
+      return <div>No data available for the chart.</div>;
+    }
 
     return (
-      <text
-        x={x}
-        y={y}
-        fill="white"
-        textAnchor={x > cx ? "start" : "end"}
-        dominantBaseline="central"
-      >
-        {`${(percent * 100).toFixed(0)}%`}
-      </text>
+      <div className="dummy-chart">
+        {chartData.map((data, index) => (
+          <div
+            key={index}
+            style={{
+              width: `${data.value}%`,
+              backgroundColor: COLORS[index % COLORS.length],
+              color: "white",
+              padding: "10px",
+              margin: "5px 0",
+              textAlign: "center",
+              borderRadius: "4px",
+            }}
+          >
+            {data.name}: {data.value}%
+          </div>
+        ))}
+      </div>
     );
   };
 
@@ -78,10 +84,7 @@ function Dashboard() {
           <div className="card" key={index}>
             <div className="card-inner">
               <h3>{item.category}</h3>
-              {index === 0 && <BsFillArchiveFill className="card-icon" />}
-              {index === 1 && <BsFillGrid3X3GapFill className="card-icon" />}
-              {index === 2 && <BsPeopleFill className="card-icon" />}
-              {index === 3 && <BsFillBellFill className="card-icon" />}
+              <span className={`card-icon icon-${index}`}></span>
             </div>
             <h1>{item.total}</h1>
           </div>
@@ -100,46 +103,43 @@ function Dashboard() {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Description</th>
+                <th>Catégorie</th>
                 <th>Montant</th>
                 <th>Montant restant</th>
                 <th>Statut</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {factures.map((facture) => (
-                <tr key={facture.id}>
-                  <td>{facture.id}</td>
-                  <td>{facture.description}</td>
-                  <td>{facture.amount}€</td>
-                  <td>{facture.remainingAmount}€</td>
-                  <td>{facture.status}</td>
+              {Array.isArray(factures) && factures.length > 0 ? (
+                factures.map((facture) => (
+                  <tr key={facture.id}>
+                    <td>{facture.id}</td>
+                    <td>{facture.category}</td>
+                    <td>{facture.montant}€</td>
+                    <td>{facture.remainingAmount}€</td>
+                    <td>{facture.status}</td>
+                    <td>
+                      <Link to={`/paiements/${facture.id}`} className="btn btn-primary">
+                        Voir les paiements
+                      </Link>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6">No factures available</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
 
-        <div className="charts">
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={chartData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={renderCustomizedLabel}
-                outerRadius={150}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {chartData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
+        {loading ? (
+          <div>Loading chart data...</div>
+        ) : (
+          <div className="charts">{renderChart()}</div>
+        )}
       </div>
     </main>
   );

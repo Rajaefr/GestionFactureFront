@@ -50,9 +50,9 @@ export const deletePaiement = async (id) => {
 export const fetchPaiementsByCategory = async () => {
   try {
     const response = await API.get("/paiements-categories");
-    return response.data;
+    return Array.isArray(response.data) ? response.data : [];
   } catch (error) {
     console.error("Error fetching paiements by category:", error);
-    throw error;
+    return [];
   }
 };

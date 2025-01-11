@@ -1,15 +1,16 @@
 import API from "./api";
 
-// Fetch factures with upcoming due dates
 export const getFacturesEcheanceProche = async (page = 0, size = 10) => {
   try {
     const response = await API.get(`/factures-echeance-proche?page=${page}&size=${size}`);
-    return response.data;
+    console.log("API Response:", response); // Log the entire response
+    return Array.isArray(response.data) ? response.data : [];
   } catch (error) {
     console.error("Error fetching factures:", error);
-    throw error;
+    return [];
   }
 };
+
 
 // Add a new facture
 export const addFacture = async (facture) => {
