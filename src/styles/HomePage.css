@@ -1,6 +1,7 @@
 .accueil-container {
   display: flex;
-  height: 100vh; /* Toute la hauteur de la fenêtre */
+  height: 100vh;
+ 
 }
 
 .image-container {
@@ -23,7 +24,8 @@
   justify-content: center; /* Center vertically */
   align-items: center; /* Center horizontally */
   padding: 20px; /* Add some spacing */
-  text-align: center; /* Center text content */
+  text-align: center;
+   /* Center text content */
 }
 
 .message-container p {
@@ -45,6 +47,8 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
 }
+
+
 
 .message-container a:hover {
   background-color: #0056b3; /* Darker blue on hover */

@@ -1,132 +1,185 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { addFacture } from "../services/factureService";
+import "../styles/Addfacture.css";
+import Checkbox from "@mui/material/Checkbox";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack"; // Import the arrow icon
 
 const AddFacture = () => {
-  // State to store form data
-  const [facture, setFacture] = useState({
-    categorie: '',
-    date: '', // Backend expects 'date', not 'dateEcheance'
-    montant: '',
-    montantRestant: '',
-    etat: '' // Optional, backend can calculate this
+  const [invoice, setInvoice] = useState({
+    description: "",
+    date: "",
+    montant: "",
+    categorie: "",
+    etat: "Unpaid", // Default value
   });
+  const [isAuthenticated, setIsAuthenticated] = useState(null); // Null for initial loading
+  const navigate = useNavigate();
 
-  // Handle form input changes
+  const categories = ["Healthcare", "Transportation", "Housing", "Obligation"];
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    setIsAuthenticated(!!token);
+
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFacture({
-      ...facture,
-      [name]: value
-    });
+    setInvoice((prevInvoice) => ({
+      ...prevInvoice,
+      [name]: value,
+    }));
   };
 
-  // Handle form submission
+  const handleCheckboxChange = (e) => {
+    const isChecked = e.target.checked;
+    setInvoice((prevInvoice) => ({
+      ...prevInvoice,
+      etat: isChecked ? "Paid" : "Unpaid",
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Invoice Data:", invoice);
 
     try {
-      const response = await fetch('/addfacture', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(facture),
-      });
+      const response = await addFacture(invoice);
+      console.log("Response:", response);
 
-      if (response.ok) {
-        console.log('Facture added successfully');
-        // Optionally reset the form or redirect
-        setFacture({
-          categorie: '',
-          date: '',
-          montant: '',
-          montantRestant: '',
-          etat: '',
-        });
-      } else {
-        console.error('Error adding facture');
-      }
+      alert("Invoice successfully added!");
+      navigate("/facturesTable"); // Adjust the path if needed
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error adding invoice:", error.response?.data || error.message);
+      alert("An error occurred while adding the invoice. Please try again.");
     }
   };
 
-  return (
-    <div className="container my-5">
-      <h2 className="mb-4 text-white">Ajouter une Facture</h2>
+  if (isAuthenticated === null) {
+    return <div>Loading...</div>;
+  }
 
-      <form onSubmit={handleSubmit} className="border p-4 rounded">
-        {/* Categorie */}
-        <div className="mb-3">
-          <label htmlFor="categorie" className="form-label text-white">Catégorie</label>
+  if (!isAuthenticated) {
+    return <div>Redirecting to login...</div>;
+  }
+
+  const styles = {
+    container: { padding: "20px" },
+    form: { maxWidth: "400px" },
+    formGroup: { marginBottom: "15px" },
+    input: { width: "100%", padding: "8px", marginTop: "5px" },
+    button: {
+      backgroundColor: "#435483",
+      color: "white",
+      padding: "10px 20px",
+      border: "none",
+      cursor: "pointer",
+    },
+    backArrow: {
+      position: 'absolute',
+      left: '10px',
+      top: '10px',
+      display: 'flex',
+      alignItems: 'center',
+      cursor: 'pointer',
+      color: '#435483',
+      marginTop:'20px',
+      marginBottom: '20px',
+    }
+  };
+
+  // Function to handle back arrow click
+  const handleBackClick = () => {
+    navigate(-1);
+  };
+
+  return (
+    <div className='add-facture-container'  style={styles.container}>
+      <div
+        className="back-arrow"
+        onClick={handleBackClick}
+        style={styles.backArrow}
+      >
+        <ArrowBackIcon style={{ marginRight: '5px' }} />
+        
+      </div>
+      <h2>Add an Invoice</h2>
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <div style={styles.formGroup}>
+          <label htmlFor="description">Description:</label>
           <input
             type="text"
-            id="categorie"
-            name="categorie"
-            value={facture.categorie}
+            id="description"
+            name="description"
+            value={invoice.description}
             onChange={handleChange}
-            placeholder="Catégorie"
-            className="form-control"
+            required
+            style={styles.input}
           />
         </div>
 
-        {/* Date */}
-        <div className="mb-3">
-          <label htmlFor="date" className="form-label text-white">Date</label>
+        <div style={styles.formGroup}>
+          <label htmlFor="date">Due Date:</label>
           <input
             type="date"
             id="date"
             name="date"
-            value={facture.date}
+            value={invoice.date}
             onChange={handleChange}
-              placeholder="Date d'échéance"
-            className="form-control"
+            required
+            style={styles.input}
           />
         </div>
 
-        {/* Montant */}
-        <div className="mb-3">
-          <label htmlFor="montant" className="form-label text-white">Montant</label>
+        <div style={styles.formGroup}>
+          <label htmlFor="montant">Montant:</label>
           <input
             type="number"
             id="montant"
             name="montant"
-            value={facture.montant}
+            value={invoice.montant}
             onChange={handleChange}
-            placeholder="Montant"
-            className="form-control"
+            required
+            style={styles.input}
           />
         </div>
 
-        {/* Montant Restant */}
-        <div className="mb-3">
-          <label htmlFor="montantRestant" className="form-label text-white">Montant Restant</label>
-          <input
-            type="number"
-            id="montantRestant"
-            name="montantRestant"
-            value={facture.montantRestant}
+        <div style={styles.formGroup}>
+          <label htmlFor="categorie">Categorie:</label>
+          <select
+            id="categorie"
+            name="categorie"
+            value={invoice.categorie}
             onChange={handleChange}
-            placeholder="Montant Restant"
-            className="form-control"
-          />
+            required
+            style={styles.input}
+          >
+            <option value="">Select a category</option>
+            {categories.map((categorie, index) => (
+              <option key={index} value={categorie}>
+                {categorie}
+              </option>
+            ))}
+          </select>
         </div>
 
-        {/* Etat */}
-        <div className="mb-3">
-          <label htmlFor="etat" className="form-label text-white">État</label>
-          <input
-            type="text"
-            id="etat"
-            name="etat"
-            value={facture.etat}
-            onChange={handleChange}
-            placeholder="État"
-            className="form-control"
-          />
+        <div>
+          <label>
+            <Checkbox
+              checked={invoice.etat === "Paid"}
+              onChange={handleCheckboxChange}
+            />
+            {invoice.etat === "Paid" ? "Paid" : "Unpaid"}
+          </label>
         </div>
 
-        {/* Submit Button */}
-        <button type="submit" className="btn btn-primary">Ajouter Facture</button>
+        <button type="submit" style={styles.button}>
+          Add Invoice
+        </button>
       </form>
     </div>
   );

@@ -9,13 +9,15 @@ body {
 
 
 .container {
-  width: 80%; /* Réduire la largeur */
+  width: 20%; /* Réduire la largeur */
   max-width: 600px; /* Limiter à une taille raisonnable */
   margin: 20px auto; /* Centrer avec des marges */
-  background: white;
+  background: rgb(255, 254, 254);
   padding: 20px 30px; /* Ajuster le padding pour plus de confort */
-  border-radius: 10px; /* Coins arrondis */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Effet d'ombre pour un look moderne */
+  border-radius: 5px; /* Coins arrondis */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+   /* Effet d'ombre pour un look moderne */
 }
 
 .header {
@@ -65,11 +67,16 @@ body {
   width: 100%; /* Remplir tout l'espace disponible */
   height: 40px; /* Réduire la hauteur */
   border: none;
+  padding-top: 25px;
   background: transparent;
   font-size: 16px; /* Taille réduite */
   color: grey;
+
   outline: none;
 }
+
+
+
 
 .forgot-password {
   margin-top: 15px; /* Moins d'espace avec les inputs */
@@ -83,6 +90,8 @@ body {
   display: flex;
   gap: 20px; /* Réduire l'écart entre les boutons */
   margin: 40px auto; /* Moins d'espace en bas */
+margin-left: 40px;
+ 
 }
 
 .submit {
@@ -101,9 +110,10 @@ body {
 }
 
 .submit.gray {
-  background: #f0f0f0;
-  color: rgb(57, 123, 166);
+  background-color: #d3d3d3; /* Light gray background */
+  color: #333; /* Darker text for contrast */
 }
+
 
 .submit:hover {
   background: #062a83; /* Couleur légèrement plus foncée au survol */

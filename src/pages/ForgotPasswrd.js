@@ -7,26 +7,30 @@ const ForgotPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
-      const response = await fetch('http://localhost:5000/reset-password', {
+      // Make a POST request to the reset password API
+      const response = await fetch('http://localhost:8080/api/auth/reset-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       });
-          
-  
+
+      // Check if the response is OK (status code 200-299)
       if (response.ok) {
-        await response.json();
-        setMessage('A reset link has been sent to your email.');
+        // Extract response message if needed
+        const data = await response.json();
+        setMessage(data.message || 'A reset link has been sent to your email.');
       } else {
+        // Handle errors from the server response
         setMessage('Error: Unable to process your request.');
       }
     } catch (error) {
+      // Handle network or connection errors
       setMessage('Error: Unable to connect to the server.');
     }
   };
-  
+
   return (
     <div className="forgot-password-container">
       <h1>Forgot Password</h1>
@@ -44,10 +48,6 @@ const ForgotPassword = () => {
       {message && <p className="message">{message}</p>}
     </div>
   );
-  
 };
 
-
 export default ForgotPassword;
-
-

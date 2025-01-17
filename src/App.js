@@ -6,8 +6,12 @@ import Login from "./components/LoginSignup/Login";
 import ForgotPassword from "./pages/ForgotPasswrd";
 import Dashboard from "./components/Dashboard";
 import FacturesTable from "./pages/FacturesTable";
+import AddPaiement from "./pages/AddPaiement";
 import AddFacture from "./pages/AddFacture";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import DetailsFacture from "./pages/DetailsFacture";
+import UpdateFacture from "./pages/UpdateFacture";
+
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -32,10 +36,18 @@ function App() {
           path="/login"
           element={<Login setAuth={setIsAuthenticated} />} // Pass setAuth to Login
         />
-        <Route exact path="/forgot-password" element={<ForgotPassword />} />
+        <Route exact path="/ForgotPasswrd" element={<ForgotPassword />} />
         <Route path="/Dashboard" element={<PrivateRoute element={<Dashboard />} />} />
         <Route path="/FacturesTable" element={<PrivateRoute element={<FacturesTable />} />} />
         <Route path="/AddFacture" element={<PrivateRoute element={<AddFacture />} />} />
+        
+        <Route path="/AddPaiement/:id" element={<AddPaiement />} />
+        <Route path="/DetailsFacture/:id" element={<DetailsFacture />} />
+  
+        <Route path="/UpdateFacture/:id" element={<UpdateFacture />} />
+       
+
+
       </Routes>
     </Router>
   );

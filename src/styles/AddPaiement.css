@@ -1,0 +1,71 @@
+.add-paiement-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 35px;
+    padding-right: 55px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-family: sans-serif; /* Setting a font-family for consistency */
+    background-color: #c7cbd272;
+    
+  }
+  
+  .add-paiement-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: bold;
+  }
+  
+ 
+  .form-group input {
+    width: 100%;
+    padding: 12px;
+    
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Keeps padding inside the input's boundaries */
+    font-size: 1em;
+  }
+  
+  .form-group input:focus {
+    border-color: #435483;
+    outline: none;
+    box-shadow: 0 0 5px rgba(67, 84, 131, 0.5); /* Adds a subtle focus effect */
+  }
+  
+  
+  button[type="submit"] {
+    background-color: #435483;
+    color: white;
+    padding: 12px 24px; /* Slightly bigger button */
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 4px; /* Adds rounded corners to the button */
+    font-size: 1em;
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #324068; /* Slightly darker shade on hover */
+  }
+  
+  /* Responsive adjustments for smaller screens */
+  @media (max-width: 768px) {
+    .add-paiement-container {
+        margin: 20px;
+        padding: 20px;
+    }
+  }

@@ -20,10 +20,14 @@ function Home() {
           toutes vos données en temps réel.
         </p>
 
-        <Link className="btn btn-outline-primary" to="/login">
-          {" "}
-          get started{" "}
-        </Link>
+        <Link
+  className="btn btn-outline-secondary"
+  to="/login"
+  style={{ backgroundColor: '#05447c', color: 'white' }}
+>
+  get started
+</Link>
+
       </div>
     </div>
   );

@@ -1,125 +1,164 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { deleteFacture } from "../services/factureService"; // Import deleteFacture service
+import axios from "axios"; // Import axios for HTTP requests
+import ArrowBackIcon from "@mui/icons-material/ArrowBack"; // Import the arrow icon
 import "../styles/FacturesTable.css";
 
-const AddFacture = () => {
-  const [invoices, setInvoices] = useState([
-    {
-      id: 1,
-      type: "Électricité",
-      date: "2025-01-05",
-      montant: 120,
-      statut: "Impayée",
-    },
-    {
-      id: 2,
-      type: "Internet",
-      date: "2025-01-03",
-      montant: 60,
-      statut: "Payée",
-    },
-    { id: 3, type: "Eau", date: "2024-12-29", montant: 80, statut: "Impayée" },
-    {
-      id: 4,
-      type: "Maintenance",
-      date: "2024-12-25",
-      montant: 300,
-      statut: "Payée",
-    },
-  ]);
-
+const FacturesTable = () => {
+  const [invoices, setInvoices] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [error, setError] = useState(null); // Add state for error handling
+  const navigate = useNavigate();
 
-  const deleteInvoice = (id) => {
-    const updatedInvoices = invoices.filter((invoice) => invoice.id !== id);
-    setInvoices(updatedInvoices);
-  };
+  useEffect(() => {
+    // Fetch all invoices from the backend with authorization
+    const fetchInvoices = async () => {
+      try {
+        const token = localStorage.getItem("accessToken"); // Retrieve access token from localStorage
+        if (!token) {
+          throw new Error("No token found");
+        }
 
-  const updateInvoice = (id) => {
-    alert(`Mise à jour de la facture ID: ${id}`);
+        const response = await axios.get("http://localhost:8080/api/factures", {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include token in headers
+          },
+        });
+
+        setInvoices(response.data);
+      } catch (err) {
+        console.error("Error fetching invoices:", err);
+        setError(err.message); // Set the error message
+      }
+    };
+
+    fetchInvoices();
+  }, []);
+
+  const handleDeleteInvoice = async (id) => {
+    try {
+      await deleteFacture(id); // Call deleteFacture API to delete the facture
+      const updatedInvoices = invoices.filter((invoice) => invoice.id !== id);
+      setInvoices(updatedInvoices); // Update the state with the remaining invoices
+      alert("Facture supprimée avec succès!");
+    } catch (err) {
+      console.error("Erreur lors de la suppression de la facture:", err);
+      setError("Erreur lors de la suppression de la facture.");
+    }
   };
 
   const addPayment = (id) => {
-    const updatedInvoices = invoices.map((invoice) =>
-      invoice.id === id ? { ...invoice, statut: "Payée" } : invoice
-    );
-    setInvoices(updatedInvoices);
+    navigate(`/AddPaiement/${id}`);
   };
 
-  // Filtrer les factures par catégorie
+  const goToDetails = (id) => {
+    navigate(`/DetailsFacture/${id}`);
+  };
+
+  const goUpdate = (id) => {
+    navigate(`/UpdateFacture/${id}`);
+  };
+
+  // Filter invoices by category
   const filteredInvoices = invoices.filter((invoice) =>
-    invoice.type.toLowerCase().includes(searchTerm.toLowerCase())
+    invoice?.categorie?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  return (
-    <div className="addfacture-container">
-      <div className="header">
-        <h1>Gestion des Factures</h1>
-        <Link className="btn btn-outline-primary" to="/AddFacture">
-          {" "}
-          Ajouter facture{" "}
-        </Link>
+  // Function to handle back arrow click
+  const handleBackClick = () => {
+    navigate(`/Dashboard/`);
+  };
 
-        <input
-          type="text"
-          className="search-input"
-          placeholder="Rechercher par catégorie"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+  return (
+    <div className="factures-container" style={{  marginTop:"70px"}}>
+      <div className="header1">
+        {/* Navigation arrow styled at the top left */}
+        <div 
+        className="back-arrow" 
+        onClick={handleBackClick} 
+        style={{
+          position: 'absolute',
+          left: '10px',
+          top: '10px',
+          display: 'flex',
+          alignItems: 'center',
+          cursor: 'pointer',
+          marginBottom: '20px',
+          marginTop:'20px',
+          color: '#435483',
+        }}
+      >
+        <ArrowBackIcon style={{ marginRight: '5px' }} />
+       
       </div>
+        <h1>Gestion des Factures</h1>
+        <div className="header-details"   >
+          <Link className="btn-pay" to="/AddFacture">
+            Ajouter facture
+          </Link>
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Rechercher par catégorie"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+      </div>
+
+      {/* Display error message if there is an error */}
+      {error && <div className="error-message">{error}</div>}
 
       {/* Tableau des factures */}
       <table className="facture-table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Type</th>
+            <th>ID</th> {/* Display generated ID */}
+            <th>Catégorie</th>
             <th>Date</th>
             <th>Montant (€)</th>
-            <th>Statut</th>
+            <th>Montant restant (€)</th>
+            <th>Etat</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {filteredInvoices.map((invoice) => (
+          {filteredInvoices.map((invoice, index) => (
             <tr key={invoice.id}>
-              <td>{invoice.id}</td>
-              <td>{invoice.type}</td>
-              <td>{invoice.date}</td>
-              <td>{invoice.montant}</td>
-              <td className={invoice.statut === "Payée" ? "paid" : "unpaid"}>
-                {invoice.statut}
+              <td>{index + 1}</td> {/* Display generated ID */}
+              <td>{invoice?.categorie || "-"}</td>
+              <td>{invoice?.date || "-"}</td>
+              <td>{invoice?.montant || 0}</td>
+              <td>{invoice?.montantRestant || 0}</td>
+              <td
+                className={invoice?.etat === "Paid" ? "paid" : "unpaid"}
+              >
+                {invoice?.etat === "Paid" ? "Payée" : "Impayée"}
               </td>
               <td>
                 <button
                   className="btn-update"
-                  onClick={() => updateInvoice(invoice.id)}
+                  onClick={() => goUpdate(invoice.id)}
                 >
-                  Update
+                  Modifier
                 </button>
                 <button
                   className="btn-delete"
-                  onClick={() => deleteInvoice(invoice.id)}
+                  onClick={() => handleDeleteInvoice(invoice.id)} // Call handleDeleteInvoice
                 >
-                  Delete
+              Supprimer
                 </button>
-                {invoice.statut === "Impayée" && (
-                  <button
-                    className="btn-pay"
-                    onClick={() => addPayment(invoice.id)}
-                  >
-                    Ajouter Paiement
-                  </button>
-                )}
-                {invoice.statut === "Payée" && (
-                  <button className="btn-pay-disabled" disabled>
-                    Paiement effectué
-                  </button>
-                )}
+                <button
+                  className={`btn-pay ${invoice?.etat === "Paid" ? "btn-disabled" : ""}`}
+                  onClick={() => invoice?.etat !== "Paid" && addPayment(invoice.id)}
+                  disabled={invoice?.etat === "Paid"} // Disable if Paid
+                >
+                  Ajouter Paiement
+                </button>
                 <button
                   className="btn-bootstrap"
-                  onClick={() => deleteInvoice(invoice.id)}
+                  onClick={() => goToDetails(invoice.id)}
                 >
                   Details
                 </button>
@@ -132,4 +171,4 @@ const AddFacture = () => {
   );
 };
 
-export default AddFacture;
+export default FacturesTable;

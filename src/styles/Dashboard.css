@@ -3,18 +3,24 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-color: #eaeaea;
+  background-color: white !important; 
+  overflow-x: hidden;
 }
 
 .main-container {
   grid-area: main;
-  padding: 20px;
-  color: rgba(255, 255, 255, 0.95);
+  width: 100%;
+  padding: 50px;
+  color: 081c60;
+margin-left: 100px;
 }
 
-.main-title h3 {
-  color: #333;
-  font-size: 24px;
+.main-title h2 {
+  color: #081c60;
+  font-size: 30px;
+  margin-right: 1100px;
+  font-weight: 520;
+ 
 }
 
 /* Card Styles */
@@ -22,7 +28,8 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4 columns by default */
   gap: 20px;
-  margin: 15px 0;
+  margin: 25px 0;
+ 
 }
 
 .card {
@@ -30,7 +37,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 25px; /* Increased padding for larger cards */
+  padding: 15px; /* Increased padding for larger cards */
   border-radius: 8px;
   background-color: #fff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -39,21 +46,37 @@ body {
   cursor: pointer;
   width: 100%; /* Ensures cards take full width of their grid container */
   max-width: 350px; /* Increased max width */
+  
+  
 }
 
 .card:hover {
   transform: translateY(-5px);
 }
 
+
+.card-category{
+  display: flex;
+  flex-direction: column;
+ margin-right: 150px;
+ margin-top: 0px;
+ 
+}
+
+.card-category span{
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
 .card-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  
+  flex-direction: row;
 }
 
-.card-icon {
-  font-size: 30px;
-  color: #4caf50;
+.card-inner h2{
+margin-top: 40px;
 }
 
 /* Chart and Table Container */
@@ -66,18 +89,20 @@ body {
 .charts {
   flex: 1;
   height: 300px;
+  margin: 30px;
+  margin-left: 150px;
 }
 
 .invoice-table {
-  flex: 1;
-  background: #fff;
+  flex: 1.2;
+  background: rgb(251, 254, 255);
   border-radius: 8px;
-  padding: 20px;
+  padding: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .invoice-table h3 {
-  color: #333;
+  color: #081c60;
   margin-bottom: 20px;
 }
 
@@ -85,6 +110,7 @@ body {
 .invoice-table table {
   width: 100%;
   border-collapse: collapse;
+
 }
 
 .invoice-table th,
@@ -110,9 +136,9 @@ body {
 /* Header Details */
 .header-details {
   display: flex;
-  justify-content: space-between; 
-  align-items: center; 
-  padding: 10px 0; 
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
 }
 
 /* Pagination Controls */
@@ -134,22 +160,7 @@ body {
   margin-bottom: 10px;
 }
 
-/* Icon Styles */
-.icon-0::before {
-  content: "📦"; /* Archive Icon */
-}
 
-.icon-1::before {
-  content: "🔲"; /* Grid Icon */
-}
-
-.icon-2::before {
-  content: "👥"; /* People Icon */
-}
-
-.icon-3::before {
-  content: "🔔"; /* Bell Icon */
-}
 
 /* Updated Card Styles (More space) */
 .card {

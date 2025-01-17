@@ -1,7 +1,9 @@
 .addfacture-container {
-  margin: 0 auto;
+  margin: 10px;
   padding: 20px;
   font-family: Arial, sans-serif;
+  
+  
 }
 
 .addfacture-container h1 {
@@ -13,7 +15,7 @@
 .facture-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+
 }
 
 .facture-table th,
@@ -65,9 +67,16 @@
   background-color: #f44336;
 }
 
+
 .btn-pay {
-  background-color: #2196f3;
+  background-color: #004085;
+  padding: 7px;
+  border-radius: 5px;
+  text-decoration: none; /* Disable underline */
+  color: white; /* Inherit the text color */
 }
+
+
 
 .btn-update:hover {
   background-color: #45a049;
@@ -75,6 +84,14 @@
 
 .btn-delete:hover {
   background-color: #d32f2f;
+}
+
+.back-arrow {
+  font-size: 18px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  color: #435483;
+  margin-right: 100px;
 }
 
 .btn-pay:hover {

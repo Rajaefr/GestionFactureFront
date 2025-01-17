@@ -1,5 +1,4 @@
 body {
-  background-image: url('https://assets.intia.fr/app/uploads/2021/01/facture-1440x960.jpg');
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -16,10 +15,16 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   max-width: 600px;
   width: 100%;
+ 
+}
+
+.add-facture-container{
+  background-color: #c7cbd272;
+  width: 500px;
 }
 
 h2 {
-  color: white;
+  color: black;
   text-align: center;
 }
 
@@ -40,10 +45,8 @@ h2 {
 }
 
 button {
-  width: 100%;
   padding: 0.75rem;
   font-size: 1.1rem;
-  margin-top: 1rem;
   border-radius: 0.375rem;
 }
 
@@ -65,6 +68,7 @@ button:disabled:hover {
   background-color: #6c757d;
 }
 
+
 input[type="number"] {
   appearance: textfield;
   -moz-appearance: textfield;
@@ -74,4 +78,24 @@ input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+/* Nouveau CSS pour afficher les boutons côte à côte */
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.form-buttons button {
+  width: 48%;  /* Donne aux boutons la même largeur */
+}
+
+/* Style spécifique aux boutons à droite */
+button.btn-secondary {
+  background-color: #6c757d;
+}
+
+button.btn-secondary:hover {
+  background-color: #5a6268;
 }

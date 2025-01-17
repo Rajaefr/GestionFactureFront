@@ -5,7 +5,7 @@ import API from "./api";
 // Get all payments for a specific invoice
 export const getPaiements = async (factureId) => {
   try {
-    const response = await API.get(`/list-paiement/${factureId}`);
+    const response = await API.get(`http://localhost:8080/add-paiement/${factureId}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching paiements:", error);
@@ -14,10 +14,13 @@ export const getPaiements = async (factureId) => {
 };
 
 // Add a new payment to an invoice
+
 export const addPaiement = async (factureId, paiement) => {
   try {
-    const response = await API.post(`/add-paiement/${factureId}`, paiement);
+    const response = await API.post(`http://localhost:8080/add-paiement/${factureId}`, paiement);
+    
     return response.data;
+    
   } catch (error) {
     console.error("Error adding paiement:", error);
     throw error;
