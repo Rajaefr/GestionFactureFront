@@ -3,8 +3,9 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-color: white !important; 
+  
   overflow-x: hidden;
+ 
 }
 
 .main-container {
@@ -39,7 +40,7 @@ margin-left: 100px;
   align-items: center;
   padding: 15px; /* Increased padding for larger cards */
   border-radius: 8px;
-  background-color: #fff;
+
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
   transition: transform 0.3s ease-in-out;
@@ -47,11 +48,19 @@ margin-left: 100px;
   width: 100%; /* Ensures cards take full width of their grid container */
   max-width: 350px; /* Increased max width */
   
-  
+ /*
+  background: rgb(125,166,239);
+  background: linear-gradient(90deg, rgba(125,166,239,0.43693974171699934) 8%, rgba(191,209,242,0.38932069409795167) 39%, rgba(139,158,193,0.38932069409795167) 77%);
+*/
+
+
+background: rgba(156, 177, 211, 0.147) !important;
+
 }
 
 .card:hover {
   transform: translateY(-5px);
+  
 }
 
 
@@ -95,9 +104,10 @@ margin-top: 40px;
 
 .invoice-table {
   flex: 1.2;
-  background: rgb(251, 254, 255);
+  background: rgba(156, 177, 211, 0.147);
+
   border-radius: 8px;
-  padding: 10px;
+  padding: 25px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -110,7 +120,7 @@ margin-top: 40px;
 .invoice-table table {
   width: 100%;
   border-collapse: collapse;
-
+  background: rgba(156, 177, 211, 0.214)
 }
 
 .invoice-table th,
@@ -127,6 +137,12 @@ margin-top: 40px;
 
 .invoice-table tr:hover {
   background-color: #f9f9f9;
+ 
+}
+
+
+.invoice-table tr{
+  border: 2px solid  #5a5a5a46;
 }
 
 .invoice-table td {

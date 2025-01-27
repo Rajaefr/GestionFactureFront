@@ -94,7 +94,7 @@ function Dashboard() {
   const renderTable = () => (
     <div className="invoice-table">
       <div className="header-details">
-        <h3>Invoice Details</h3>
+        <h3>Details des paiements</h3>
         <Link className="btn btn-outline-primary" to="/FacturesTable">
           View all
         </Link>
@@ -174,7 +174,7 @@ function Dashboard() {
   return (
     <main className="main-container">
       <div className="main-title" >
-        <h2>Listes des catégorie</h2>
+        <h2>Liste des factures</h2>
       </div>
 
       {renderCards()}

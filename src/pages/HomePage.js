@@ -8,7 +8,7 @@ function Home() {
     <div className="accueil-container">
       <div className="image-container">
         <img
-          src="/images/fact.png"
+          src="https://th.bing.com/th/id/OIP.AcxP7SUCPer1nNjZmRJ5VgHaE8?w=329&h=180&c=7&r=0&o=5&dpr=1.1&pid=1.7"
           alt="Illustration du service de facturation"
         />
       </div>

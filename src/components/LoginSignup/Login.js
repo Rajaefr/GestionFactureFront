@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/Login.css";
 import user_icon from "../Assets/person.png"; // Import the user icon
 import email_icon from "../Assets/email.png"; // Import the user icon
@@ -6,13 +6,21 @@ import password_icon from "../Assets/password.png";
 import { useNavigate } from "react-router-dom"; // Import useNavigate hook
 import UserServices from "../../services/userService";
 
-const Login = ({ setAuth }) => { // Receive setAuth from App.js
+const Login = ({ setAuth }) => {
   const [action, setAction] = useState("Sign In");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate(); // Initialize the navigate function
+
+  // Set the background color when the component mounts
+  useEffect(() => {
+    document.body.style.backgroundColor = "rgba(132, 163, 229, 0.289)";
+    return () => {
+      document.body.style.backgroundColor = ""; // Reset background color on component unmount
+    };
+  }, []);
 
   const handleSubmit = async () => {
     try {
