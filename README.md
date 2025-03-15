@@ -35,8 +35,8 @@ Ce projet représente le **frontend** du système de gestion des factures person
 ## **💡 Installation et Exécution**  
 1️⃣ **Cloner le projet**  
 ```bash
-git clone https://github.com/Rajaefr/GestionFacturesFront.git
-cd GestionFacturesFront
+git clone https://github.com/Rajaefr/GestionFactureFront.git
+cd GestionFactureFront
 ```  
 2️⃣ **Installer les dépendances**  
 ```bash
